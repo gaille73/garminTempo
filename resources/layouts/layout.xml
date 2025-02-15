@@ -1,0 +1,23 @@
+<layout id="WatchFace">
+    <label
+        id="line1"
+        x="center"
+        y="20%"
+        font="Graphics.FONT_LARGE" 
+        justification="Gfx.TEXT_JUSTIFY_CENTER"
+    />
+    <label 
+        id="line2" 
+        x="center" 
+        y="center"
+        font="Graphics.FONT_LARGE" 
+        justification="Graphics.TEXT_JUSTIFY_CENTER" 
+    />
+     <label
+        id="line3"
+        x="center"
+        y="65%"
+        font="Graphics.FONT_LARGE" 
+        justification="Gfx.TEXT_JUSTIFY_CENTER"
+    />
+</layout>
