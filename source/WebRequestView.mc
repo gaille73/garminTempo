@@ -27,18 +27,14 @@ class WebRequestView extends WatchUi.View {
 
     // Update the view
     function onUpdate(dc as Dc) as Void {
-        //Get and show the current time
-        //var clockTime = System.getClockTime();
-        //var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%02d")]);
-        //var view = View.findDrawableById("TimeLabel") as Text;
-        //view.setText(timeString);
-
-        // Call the parent onUpdate function to redraw the layout
-        // View.onUpdate(dc);
         if (_infosRetrieved == false) {
             var view1 = View.findDrawableById("line1") as Text;
             view1.setColor(Graphics.COLOR_WHITE);
             view1.setText(_message);
+            var view2 = View.findDrawableById("line2") as Text;
+            view2.setText("");
+            var view3 = View.findDrawableById("line3") as Text;
+            view3.setText("");
         } else {
             var view1 = View.findDrawableById("line1") as Text;
             if (_line1.equals("blue")) {
@@ -77,6 +73,10 @@ class WebRequestView extends WatchUi.View {
     public function onReceive(args as Dictionary or String or Null) as Void {
         if (args instanceof String) {
             _message = args;
+            _infosRetrieved = false;
+            if (_message.find("-104") != null) {
+                _message="BLE connection\nnot available...";
+            }
         } else if (args instanceof Dictionary) {
             _line1 = args["dayColor"];
             var cost = args["dayCost"];
