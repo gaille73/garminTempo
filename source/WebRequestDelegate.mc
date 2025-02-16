@@ -22,10 +22,10 @@ class WebRequestDelegate extends WatchUi.BehaviorDelegate {
 
     // On a menu event, make a web request
     // @return true if handled, false otherwise
-    public function onMenu() as Boolean {
-        makeRequest();
-        return true;
-    }
+    //public function onMenu() as Boolean {
+    //    makeRequest();
+    //    return true;
+    //}
 
     // On a select event, make a web request
     // @return true if handled, false otherwise
@@ -36,7 +36,7 @@ class WebRequestDelegate extends WatchUi.BehaviorDelegate {
 
     // Make the web request
     private function makeRequest() as Void {
-        _notify.invoke("Executing\nRequest");
+        _notify.invoke("Data loading...");
 
         var options = {
             :methode => Communications.HTTP_REQUEST_METHOD_GET,

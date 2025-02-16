@@ -4,7 +4,7 @@ import Toybox.System;
 import Toybox.WatchUi;
 
 class WebRequestView extends WatchUi.View {
-    private var _message as String = "Press menu or\nselect button";
+    private var _message as String = "Press start button";
     private var _line1 as String = "";
     private var _line2 as String = "";
     private var _line3 as String = "";
@@ -29,10 +29,10 @@ class WebRequestView extends WatchUi.View {
     function onUpdate(dc as Dc) as Void {
         if (_infosRetrieved == false) {
             var view1 = View.findDrawableById("line1") as Text;
-            view1.setColor(Graphics.COLOR_WHITE);
-            view1.setText(_message);
+            view1.setText("");
             var view2 = View.findDrawableById("line2") as Text;
-            view2.setText("");
+            view2.setText(_message);
+            view2.setColor(Graphics.COLOR_WHITE);
             var view3 = View.findDrawableById("line3") as Text;
             view3.setText("");
         } else {
@@ -75,7 +75,9 @@ class WebRequestView extends WatchUi.View {
             _message = args;
             _infosRetrieved = false;
             if (_message.find("-104") != null) {
-                _message="BLE connection\nnot available...";
+                _message="BLE connection\nnot available";
+            } else if (_message.find("-300") != null) {
+                _message="Connection\ntimed out";
             }
         } else if (args instanceof Dictionary) {
             _line1 = args["dayColor"];
