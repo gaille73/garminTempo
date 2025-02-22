@@ -12,6 +12,10 @@ import Toybox.WatchUi;
 // Creates a web request on menu / select events
 class WebRequestDelegate extends WatchUi.BehaviorDelegate {
     private var _notify as Method(args as Dictionary or String or Null) as Void;
+    private var _dataReceived as Boolean = false;
+    private var _bRecap as String="";
+    private var _wRecap as String="";
+    private var _rRecap as String="";
 
     // Set up the callback to the view
     // @param handler Callback method for when data is received
@@ -21,11 +25,15 @@ class WebRequestDelegate extends WatchUi.BehaviorDelegate {
     }
 
     // On a menu event, make a web request
-    // @return true if handled, false otherwise
-    //public function onMenu() as Boolean {
-    //    makeRequest();
-    //    return true;
-    //}
+    public function onKey(key as KeyEvent) as Boolean {
+        if (_dataReceived == true) {
+            if (key.getKey() == WatchUi.KEY_DOWN) {
+                // construction de la vue pour le 2eme écran, les données à afficher sont passées en paramètres
+                WatchUi.pushView(new $.CountersView(_bRecap,_wRecap,_rRecap), new $.CountersDelegate(), WatchUi.SLIDE_UP);
+            }
+        }
+        return false;
+    }
 
     // On a select event, make a web request
     // @return true if handled, false otherwise
@@ -58,9 +66,14 @@ class WebRequestDelegate extends WatchUi.BehaviorDelegate {
     // @param responseCode The server response code
     // @param data Content from a successful request
     public function onReceive(responseCode as Number, data as Dictionary or String or Null) as Void {
-
         if (responseCode == 200) {
-            _notify.invoke(data);
+            if (data instanceof Dictionary) {
+                _bRecap = data["bRecap"];
+                _wRecap = data["wRecap"];
+                _rRecap = data["rRecap"];
+                _dataReceived = true;
+            }
+        _notify.invoke(data);
         } else {
             _notify.invoke("Failed to load\nError: " + responseCode.toString());
         }
