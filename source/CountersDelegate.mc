@@ -20,7 +20,7 @@ class CountersDelegate extends WatchUi.BehaviorDelegate {
     // On a menu event, make a web request
     public function onKey(key) as Boolean {
         if (key.getKey() == WatchUi.KEY_UP) {
-            WatchUi.popView(WatchUi.SLIDE_UP);
+            WatchUi.popView(WatchUi.SLIDE_DOWN);
             return true;
         }
         return false;
